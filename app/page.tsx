@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import CreatePost from "./components/CreatePost";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function Home() {
   //post
@@ -21,7 +22,7 @@ export default function Home() {
         setPostList(response.data);
       })
       .catch((error) => {
-        alert("Error Getting");
+        console.log("Error Getting");
       });
   };
 
@@ -35,7 +36,10 @@ export default function Home() {
         getPost();
       })
       .catch((error) => {
-        alert("Error Adding");
+        Swal.fire({
+          text: "There was an error adding post",
+          icon: "error"
+        });
       });
   };
 

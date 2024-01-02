@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 interface createPostProps{
-    addPost: any
+    addPost: Function
 }
 
 export default function CreatePost({addPost}:createPostProps) {
@@ -12,10 +13,22 @@ export default function CreatePost({addPost}:createPostProps) {
   const [isDisabled, setIsDisabled] = useState(false);
 
    //Submit form
-   const handleSubmit = (event:any) => {
+   const handleSubmit = (event:React.FormEvent) => {
     event.preventDefault();
-    addPost(text);
-    setText("");
+    if (text.length >300) {
+        Swal.fire({
+            text: "Please write a post less than 300 chracters or less",
+            icon: "error"
+          });
+    }  if (text.length === 0) {
+        Swal.fire({
+            text: "Cannot add an empty post",
+            icon: "error"
+          });
+    } else {
+        addPost(text);
+        setText("");
+    }
   };
 
   return (
@@ -40,7 +53,7 @@ export default function CreatePost({addPost}:createPostProps) {
           className="text-sm bg-blue-600 text-white py-2 px-6 rounded-xl disabled:opacity-25"
           type="submit"
         >
-          Create post
+          Post
         </button>
       </div>
     </form>
