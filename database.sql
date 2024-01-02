@@ -1,0 +1,5 @@
+CREATE TABLE "post" (
+  "id" SERIAL PRIMARY KEY,
+  "text" VARCHAR(300) NOT NULL,
+  "isPinned" BOOLEAN DEFAULT FALSE
+);
