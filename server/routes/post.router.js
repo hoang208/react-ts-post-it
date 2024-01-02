@@ -17,9 +17,10 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   let text = req.body.text;
+  console.log("text",text)
   let sqlText = `
-    INSERT INTO "post" ("text"
-    VALUES  ($1);
+    INSERT INTO "post" ("text")
+    VALUES ($1);
     `;
 
   pool

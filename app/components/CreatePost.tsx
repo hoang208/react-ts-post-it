@@ -2,18 +2,24 @@
 
 import { useState } from "react";
 
+interface createPostProps{
+    addPost: any
+}
 
-export default function CreatePost(props) {
+export default function CreatePost({addPost}:createPostProps) {
 
   const [text, setText] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
 
    //Submit form
-   const handleSubmit = () => {
+   const handleSubmit = (event:any) => {
+    event.preventDefault();
+    addPost(text);
+    setText("");
   };
 
   return (
-    <form className="bg-white my-8 p-8 rounded-md">
+    <form className="bg-white my-8 p-8 rounded-md" onSubmit={handleSubmit}>
       <div className="flex flex-col my-2">
         <textarea
           onChange={(e) => setText(e.target.value)}
