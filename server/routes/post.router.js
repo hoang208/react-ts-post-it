@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require("../modules/pool");
 
 router.get("/", (req, res) => {
-  const query = `SELECT * FROM post`;
+  const query = `SELECT * FROM post ORDER BY "isPinned" DESC`;
   pool
     .query(query)
     .then((result) => {
@@ -35,7 +35,23 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {});
+router.put("/:id", (req, res) => {
+    let idToUpdate = req.params.id;
+    let isPinned = req.body.isPinned
+    let sqlText = `
+      UPDATE "post" SET "isPinned" = $1 WHERE "id" = $2;
+      `;
+    pool
+      .query(sqlText, [isPinned, idToUpdate])
+      .then((result) => {
+        console.log("Update in database", idToUpdate);
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log(`Update request failed: ${sqlText}`, error);
+        res.sendStatus(500);
+      });
+});
 
 router.delete("/:id", (req, res) => {
     let idToDelete = req.params.id;
