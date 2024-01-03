@@ -11,9 +11,10 @@ type Post = {
 
 interface postListProps {
   postList: Array<Post>;
+  deletePost: Function
 }
 
-export default function PostList({ postList }: postListProps) {
+export default function PostList({ postList, deletePost }: postListProps) {
   return (
     <>
       {postList.map((post) => (
@@ -23,6 +24,7 @@ export default function PostList({ postList }: postListProps) {
             id={post.id}
             text={post.text}
             isPinned={post.isPinned}
+            deletePost={deletePost}
           />
         </div>
       ))}
