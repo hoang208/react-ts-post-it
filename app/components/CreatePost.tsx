@@ -3,31 +3,31 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 
-interface createPostProps{
-    addPost: Function
+interface createPostProps {
+  addPost: Function;
 }
 
-export default function CreatePost({addPost}:createPostProps) {
-
+export default function CreatePost({ addPost }: createPostProps) {
   const [text, setText] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
 
-   //Submit form
-   const handleSubmit = (event:React.FormEvent) => {
+  //Submit form
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    if (text.length >300) {
-        Swal.fire({
-            text: "Please write a post less than 300 chracters or less",
-            icon: "error"
-          });
-    }  if (text.length === 0) {
-        Swal.fire({
-            text: "Cannot add an empty post",
-            icon: "error"
-          });
+    if (text.length > 300) {
+      Swal.fire({
+        text: "Please write a post less than 300 chracters or less",
+        icon: "error",
+      });
+    }
+    if (text.length === 0) {
+      Swal.fire({
+        text: "Cannot add an empty post",
+        icon: "error",
+      });
     } else {
-        addPost(text);
-        setText("");
+      addPost(text);
+      setText("");
     }
   };
 

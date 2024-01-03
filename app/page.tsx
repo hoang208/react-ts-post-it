@@ -44,6 +44,24 @@ export default function Home() {
       });
   };
 
+  //PUT request
+  const updatePost = (idToUpdate: number, isPinned: boolean) => {
+    axios
+      .put(`/api/post/${idToUpdate}`, {
+        idToUpdate: idToUpdate,
+        isPinned: isPinned,
+      })
+      .then((response) => {
+        getPost();
+      })
+      .catch((error) => {
+        Swal.fire({
+          text: "There was an error pinning the post",
+          icon: "error",
+        });
+      });
+  };
+
   //DELETE request
   const deletePost = (idToDelete: number) => {
     axios
@@ -52,7 +70,10 @@ export default function Home() {
         getPost();
       })
       .catch((error) => {
-        alert("Error Deleting");
+        Swal.fire({
+          text: "There was an error deleting post",
+          icon: "error",
+        });
       });
   };
 
@@ -63,7 +84,11 @@ export default function Home() {
       </h1>
       <CreatePost addPost={addPost} />
       <div className="w-full sm:py-16 md:columns-2 xl:columns-3">
-        <PostList postList={postList} deletePost={deletePost}/>
+        <PostList
+          postList={postList}
+          deletePost={deletePost}
+          updatePost={updatePost}
+        />
       </div>
     </div>
   );
