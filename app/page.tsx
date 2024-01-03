@@ -44,6 +44,18 @@ export default function Home() {
       });
   };
 
+  //DELETE request
+  const deletePost = (idToDelete: number) => {
+    axios
+      .delete(`/api/post/${idToDelete}`)
+      .then((response) => {
+        getPost();
+      })
+      .catch((error) => {
+        alert("Error Deleting");
+      });
+  };
+
   return (
     <div className="mx-auto flex w-full max-w-screen-xl flex-grow flex-col px-8 sm:px-24">
       <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
@@ -51,7 +63,7 @@ export default function Home() {
       </h1>
       <CreatePost addPost={addPost} />
       <div className="w-full sm:py-16 md:columns-2 xl:columns-3">
-        <PostList postList={postList} />
+        <PostList postList={postList} deletePost={deletePost}/>
       </div>
     </div>
   );

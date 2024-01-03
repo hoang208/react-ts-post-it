@@ -37,6 +37,21 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {});
 
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", (req, res) => {
+    let idToDelete = req.params.id;
+    let sqlText = `
+        DELETE FROM "post" WHERE "id" = $1;
+        `;
+    pool
+      .query(sqlText, [idToDelete])
+      .then((result) => {
+        console.log("Deleted from database ", idToDelete);
+        res.sendStatus(202);
+      })
+      .catch((error) => {
+        console.log(`Error making database query ${sqlText}`, error);
+        res.sendStatus(500);
+      });
+});
 
 module.exports = router;
